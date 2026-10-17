@@ -73,7 +73,7 @@ window to the document. A minimal host integration is:
 
   const canvas = document.querySelector('#viewport');
   const viewport = await createViewport(canvas, {
-    backend: 'auto',
+    backend: 'webgl2',
     controls: true,
   });
   viewport.addPrimitive({ id: 1, name: 'Example cube', primitive: 'Cube' });
@@ -183,3 +183,5 @@ write to `B:\True Engine`, `B:\License Plate Obfuscation Studio`, existing
 application folders or user data. Licensing for original Birthright code remains
 the owner's decision; see [LICENSING.md](../LICENSING.md). A package identity or
 public source repository does not itself grant redistribution terms.
+
+For the first consumer integration use the qualified `webgl2` backend explicitly. This remains actual Rust/wgpu rendering through WebAssembly. The SDK also exposes WebGPU/auto initialization, but this cloud software-graphics environment could not qualify WebGPU presentation; enable it for consumers only after their target-platform graphics checks pass.

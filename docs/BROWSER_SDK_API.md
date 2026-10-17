@@ -7,7 +7,7 @@ Extract `True-Engine-SDK-v0.1.3-web.zip`, verify its SHA-256 against the release
 ```js
 import {createViewport, SDK_VERSION} from './vendor/true-engine/0.1.3/index.js';
 const viewport = await createViewport(document.querySelector('canvas'), {
-  backend: 'auto', controls: true,
+  backend: 'webgl2', controls: true,
   onError: error => showError(error.message)
 });
 viewport.addPrimitive({id: 1, name: 'Cube', primitive: 'Cube',
@@ -52,4 +52,4 @@ Browser save envelope: `format:"true-engine-web-project"`, `format_version:1`, `
 
 Compatibility: existing Rust signatures and native schema 1 remain valid. Added core APIs are `Mesh::validate`, `Scene::pick_with_meshes` and `Renderer::upload_with_meshes`. Browser APIs/declarations and envelope version are pinned by the package version; incompatible changes require explicit approval and migration documentation. No native C ABI, plugin system or npm registry publication is promised. See compatibility.json and manifest.json in the ZIP for source, hashes and actual test evidence.
 
-The working example initializes a supplied canvas, displays a blue cube and orange indexed pyramid, changes material, controls the camera, picks objects and saves/reopens a JSON file. Automated tests exercise this exact packaged example and inspect real canvas pixels. Tested browser/platform/backends are recorded in the release report; target compilation alone does not verify Windows, macOS, Safari or Firefox execution. Studio integration is separate: see PLATE_STUDIO_INTEGRATION.md for its actual server/package changes.
+The working example defaults to the qualified WebGL2 backend (override with `?backend=webgpu` or `?backend=auto` for explicit platform checks), initializes a supplied canvas, displays a blue cube and orange indexed pyramid, changes material, controls the camera, picks objects and saves/reopens a JSON file. Automated tests exercise this exact packaged example and inspect real canvas pixels. Tested browser/platform/backends are recorded in the release report; target compilation alone does not verify Windows, macOS, Safari or Firefox execution. Studio integration is separate: see PLATE_STUDIO_INTEGRATION.md for its actual server/package changes.

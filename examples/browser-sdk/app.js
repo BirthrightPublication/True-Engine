@@ -3,7 +3,7 @@ const canvas = document.querySelector('#viewport');
 const status = document.querySelector('#status');
 const report = error => { status.textContent = `Engine error: ${error.message ?? error}`; status.className = 'error'; };
 try {
-  const backend = new URLSearchParams(location.search).get('backend') ?? 'auto';
+  const backend = new URLSearchParams(location.search).get('backend') ?? 'webgl2';
   const viewport = await createViewport(canvas, {backend, onError: report});
   viewport.addPrimitive({id: 1, name: 'Cube', primitive: 'Cube', transform: {translation: [-1.1, 0, 0]}});
   viewport.loadMesh({id: 2, name: 'Indexed pyramid',
