@@ -9,7 +9,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: engine-${{ github.event.release.tag_name || github.ref }}
+  group: engine-${{ github.event.release.tag_name || github.ref_name }}
   cancel-in-progress: false
 jobs:
   linux-checks:
