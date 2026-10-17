@@ -17,7 +17,7 @@ pub fn web_start() {
 
 pub async fn run() {
     let events = EventLoop::new().unwrap();
-    let window=Arc::new(WindowBuilder::new().with_title("TRUE ENGINE 0.1.0 | Left: orbit · Right: pan · Wheel: zoom · Click: select · S/L: project").build(&events).unwrap());
+    let window=Arc::new(WindowBuilder::new().with_title(format!("TRUE ENGINE {} | Left: orbit · Right: pan · Wheel: zoom · Click: select · S/L: project", env!("CARGO_PKG_VERSION"))).build(&events).unwrap());
     #[cfg(target_arch = "wasm32")]
     {
         use winit::platform::web::WindowExtWebSys;
@@ -137,7 +137,8 @@ pub async fn run() {
                                 let selected = scene.pick(o, d);
                                 renderer.upload(&device, &scene, selected);
                                 window.set_title(&format!(
-                                    "TRUE ENGINE 0.1.0 | Selected: {selected:?}"
+                                    "TRUE ENGINE {} | Selected: {selected:?}",
+                                    env!("CARGO_PKG_VERSION")
                                 ));
                             }
                         }

@@ -1,0 +1,3 @@
+Published crate declares CC0-1.0. Authors: Kang Seonghoon <public+rust@mearie.org>
+VCS commit: 4225763d744183d720f575ae96d04161b4d08ea0
+Repository: https://github.com/lifthrasiir/hexf

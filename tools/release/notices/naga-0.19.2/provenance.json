@@ -1,0 +1,16 @@
+{
+  "crate": "naga",
+  "version": "0.19.2",
+  "vcs_commit": "61d779d4d67111bcf34f4b3b8b59e0d2dc6147f4",
+  "license_expression": "MIT OR Apache-2.0",
+  "files": [
+    {
+      "filename": "LICENSE.MIT",
+      "url": "https://raw.githubusercontent.com/gfx-rs/wgpu/61d779d4d67111bcf34f4b3b8b59e0d2dc6147f4/LICENSE.MIT"
+    },
+    {
+      "filename": "LICENSE.APACHE",
+      "url": "https://raw.githubusercontent.com/gfx-rs/wgpu/61d779d4d67111bcf34f4b3b8b59e0d2dc6147f4/LICENSE.APACHE"
+    }
+  ]
+}

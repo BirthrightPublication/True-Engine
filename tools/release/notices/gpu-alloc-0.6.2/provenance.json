@@ -1,0 +1,12 @@
+{
+  "crate": "gpu-alloc",
+  "version": "0.6.2",
+  "vcs_commit": "61020bdcb4eb04fca6bbf748aeb9570e859236e0",
+  "license_expression": "MIT OR Apache-2.0",
+  "files": [
+    {
+      "filename": "COPYING",
+      "url": "https://raw.githubusercontent.com/zakarumych/gpu-alloc/61020bdcb4eb04fca6bbf748aeb9570e859236e0/COPYING"
+    }
+  ]
+}

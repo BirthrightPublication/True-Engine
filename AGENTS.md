@@ -1,6 +1,6 @@
 # TRUE ENGINE engineering contract
 
-Stay within v0.1.0 until the owner approves a future release phase. Preserve existing public APIs and schema compatibility; breaking changes require explicit approval. Keep the engine application-agnostic: license plate logic belongs in a consumer application.
+Stay within the approved 0.1 foundation line, including the explicitly requested 0.1.1 delivery patch, until the owner approves a future feature phase. Preserve existing public APIs and schema compatibility; breaking changes require explicit approval. Keep the engine application-agnostic: license plate logic belongs in a consumer application.
 
 Use the existing isolated checkout, without creating a worktree unless requested. Read docs/SDK-0.1.md before changing public behavior. Prefer small modules, retained GPU resources, and event-driven rendering. Never claim platform execution or performance measurements without evidence.
 
@@ -15,3 +15,5 @@ Read [docs/PERMANENT_DEVELOPMENT_DIRECTIVE.md](docs/PERMANENT_DEVELOPMENT_DIRECT
 Follow [docs/GITHUB_REPOSITORY_RULES.md](docs/GITHUB_REPOSITORY_RULES.md). `BirthrightPublication/True-Engine` is the authoritative GitHub source. Fetch and inspect before development, preserve unrelated work, use a dedicated feature branch, commit/push approved iteration work, open PRs where supported, merge only approved changes, verify remote refs, and keep release tags immutable. Record source-to-package hashes under releases/. Report blocked PR/API/asset operations honestly. The owner's standing repository workflow authorizes these routine pushes; never force-push stable history or mix project repositories.
 
 Do not select an open-source license or commercial terms for the owner's original code. Read LICENSING.md and docs/PUBLICATION_REVIEW.md before public binary distribution. Preserve original third-party license expressions; inventory metadata is not legal clearance or a shipped-binary SBOM. Exclude secrets/private state and review publication contents. Commercial/public binary release requires applicable dependency notices and the owner's licensing decision; source visibility alone is not an open-source grant. Keep API compatibility and migrations explicit for version-pinned consumers.
+
+Standard releases use tools/release/package.py and .github/workflows/windows-release.yml; never move old tags or clobber release assets. The Windows updater replaces only managed app/, retains Build/root/legacy/persistent data, and refuses incompatible or conflicting state. Run its integration suite and packaging tests when modifying delivery code. GitHub Windows CI and live publication must be verified independently of local Linux checks; do not call a release uploaded merely because a tag push succeeded.

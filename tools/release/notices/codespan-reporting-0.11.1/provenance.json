@@ -1,0 +1,12 @@
+{
+  "crate": "codespan-reporting",
+  "version": "0.11.1",
+  "vcs_commit": "fd389a13f5bb6d625b71e2e4694b26e127f393f9",
+  "license_expression": "Apache-2.0",
+  "files": [
+    {
+      "filename": "LICENSE",
+      "url": "https://raw.githubusercontent.com/brendanzab/codespan/fd389a13f5bb6d625b71e2e4694b26e127f393f9/LICENSE"
+    }
+  ]
+}

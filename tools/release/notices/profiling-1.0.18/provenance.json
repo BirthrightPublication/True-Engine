@@ -1,0 +1,16 @@
+{
+  "crate": "profiling",
+  "version": "1.0.18",
+  "vcs_commit": "8271551172eb6fa4cba47369aedd93790c623df9",
+  "license_expression": "MIT OR Apache-2.0",
+  "files": [
+    {
+      "filename": "LICENSE-MIT",
+      "url": "https://raw.githubusercontent.com/aclysma/profiling/8271551172eb6fa4cba47369aedd93790c623df9/LICENSE-MIT"
+    },
+    {
+      "filename": "LICENSE-APACHE",
+      "url": "https://raw.githubusercontent.com/aclysma/profiling/8271551172eb6fa4cba47369aedd93790c623df9/LICENSE-APACHE"
+    }
+  ]
+}

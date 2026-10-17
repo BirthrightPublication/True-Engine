@@ -1,4 +1,14 @@
-# Known issues — 0.1.0 Windows test kit r2
+# Current 0.1.1 delivery limitations
+
+- The new automatic updater and native Windows release workflow are implemented; local Linux tests do not prove Windows runtime compatibility or successful GitHub publication.
+- API access in this cloud environment returns 403; the updater needs a published stable release with both standard assets. Until one exists, it fails safely without changing app files.
+- Interactive Windows GPU, native BAT/PowerShell 5.1 and live GitHub end-to-end checks remain unverified locally; CI provides native CPU/updater tests once it actually runs.
+- Process-stop recovery handles journaled old-app backups; full power-loss/disk-corruption atomicity is not claimed.
+- Existing root launchers are preserved, not silently replaced. Legacy Current/Versions use old launchers/data; the new managed launcher defaults to a separate Data/ManagedViewport workspace.
+- Engine functionality is unchanged apart from version titles; remaining engine limitations below still apply. No performance benchmark or production qualification.
+
+## Historical 0.1.0 test-kit limitations
+
 
 - Windows EXE, GPU/driver compatibility, Windows PowerShell 5.1, BAT wrappers and Windows installation are not executed in this Linux environment. Cross-linking is not runtime qualification.
 - The demo has perspective only; orthographic, camera reset, keyboard navigation, transform editing, grid, undo/redo, import, PBR and Studio functionality are absent.

@@ -136,3 +136,7 @@ Expand as demonstrated Birthright product needs require. Possible additions incl
 The existing v0.1.0 candidate includes perspective orbit/pan/zoom, primitive rendering, materials/lighting, picking, scene hierarchy, and schema-1 serialization. Picking, hierarchy, serialization, and the initial SDK contract already exist under the earlier approved v0.1 scope; retain their compatibility even though their broader roadmap phases are later. Their presence does not authorize the rest of those phases.
 
 The next v0.1 foundation patch should add orthographic projection, camera reset, and documented keyboard camera controls, with automated checks and a native input smoke test. Preserve the existing perspective API behavior and project schema. A Windows x64 executable has been cross-linked, but Windows execution and updater qualification remain outstanding; a cross-build alone does not complete the working Windows test-build requirement. See VALIDATION.md for actual evidence.
+
+### Approved delivery patch: 0.1.1
+
+The owner requested standard GitHub Windows assets and automatic updates. This is a compatibility-preserving release-infrastructure patch in the 0.1 line, not authorization for new rendering/editor phases. Verify native Windows CI, actual release assets, Windows updates and the viewport before proceeding with engine feature work. See NEXT_ITERATION.md.

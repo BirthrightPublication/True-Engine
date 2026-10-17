@@ -24,3 +24,7 @@ __pycache__/
 /Current/
 /Versions/
 /.true-engine/
+
+# Updater assets if this checkout itself is B:\True Engine\Build
+/Releases/**/*.zip
+/Releases/**/*.zip.sha256

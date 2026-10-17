@@ -17,3 +17,7 @@ Preserved the verified 0.1.0 source and immutable v0.1.0 tag on GitHub. Added pe
 ### Source-publication review (no engine version change)
 
 Reviewed source exclusions, common secret patterns, first-party runtime/install paths and the locked dependency license metadata. Added publication review, an inventory of 245 declared third-party package licenses, and explicit owner-pending licensing status. No open-source license selected, no engine/API/schema change, no tag moved, no binary replaced. Complete shipped-dependency notices, vulnerability audit and platform runtime qualification remain outstanding; GitHub API access still blocks PR/release uploads.
+
+## 0.1.1 — Windows release/update infrastructure
+
+Added standard versioned Windows ZIP/checksum assets, tag-gated GitHub Actions with native Windows compilation/CPU/updater tests, dependency notice bundles, automatic latest-stable download/verification, managed app staging/backups/rollback/journaling, persistent-state preservation, logs and stable root launchers. Retained legacy installation layouts and old tags/packages. Viewport title follows the actual compiled version. SDK 0.1/schema 1 remain compatible, no migration. No new engine feature phase or performance claim. See docs/RELEASE-0.1.1.md for actual tests and outstanding native/live verification.

@@ -1,0 +1,16 @@
+{
+  "crate": "d3d12",
+  "version": "0.19.0",
+  "vcs_commit": "8b2098bd4eaf1a4e4793cd4684f7b2e4ec64b39d",
+  "license_expression": "MIT OR Apache-2.0",
+  "files": [
+    {
+      "filename": "LICENSE.MIT",
+      "url": "https://raw.githubusercontent.com/gfx-rs/wgpu/8b2098bd4eaf1a4e4793cd4684f7b2e4ec64b39d/LICENSE.MIT"
+    },
+    {
+      "filename": "LICENSE.APACHE",
+      "url": "https://raw.githubusercontent.com/gfx-rs/wgpu/8b2098bd4eaf1a4e4793cd4684f7b2e4ec64b39d/LICENSE.APACHE"
+    }
+  ]
+}

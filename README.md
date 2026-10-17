@@ -1,5 +1,10 @@
 # TRUE ENGINE
 
+Current engine source: **0.1.1**, SDK **0.1**, scene schema **1**. This is a developer viewport/engine foundation, not a production-qualified engine or License Plate Obfuscation Studio.
+
+The [standard GitHub release/updater guide](docs/WINDOWS_UPDATES.md) describes tag-driven native Windows builds and `Update True Engine.bat`. Existing 0.1.0 test-kit artifacts, tagged source and install directories are retained. Windows runtime and the new GitHub workflow must be verified separately from local Linux checks.
+
+
 Reusable, application-agnostic Rust 3D engine for Birthright software. v0.1.0 initial implementation; platform qualification remains incomplete. License Plate Obfuscation Studio will consume the SDK separately.
 
 The core provides scene hierarchy, cube/plane/sphere meshes, opaque color materials, orbit camera, triangle picking, schema-validated JSON projects, and a retained wgpu renderer. The viewport example owns window/input integration with winit; both native and wasm entry points are included.

@@ -1,0 +1,12 @@
+{
+  "crate": "gpu-descriptor",
+  "version": "0.2.4",
+  "vcs_commit": "706689f8be1621bd1bc6da363fca43aa1df11f8c",
+  "license_expression": "MIT OR Apache-2.0",
+  "files": [
+    {
+      "filename": "COPYING",
+      "url": "https://raw.githubusercontent.com/zakarumych/gpu-descriptor/706689f8be1621bd1bc6da363fca43aa1df11f8c/COPYING"
+    }
+  ]
+}

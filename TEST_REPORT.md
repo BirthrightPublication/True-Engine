@@ -1,19 +1,15 @@
-# TRUE ENGINE 0.1.0 — Windows test kit r2 test report
+# TRUE ENGINE 0.1.1 delivery-patch verification
 
-Engine binary unchanged; delivery scripts/documentation are new. No engine feature milestone advanced.
+Actual checks completed in the Linux cloud environment:
 
-Fresh checks in this packaging session:
+- Rust fmt and clippy with warnings denied: passed.
+- `EGL_PLATFORM=surfaceless cargo test --workspace --locked -j 4`: 8 SDK tests, 1 real GPU pixel-readback test and 1 SDK doctest passed, zero failures/ignored. Empty unit harnesses are not counted.
+- `python3 -m unittest discover -s tools -v`: 8 tests passed, covering existing updater/package behavior plus deterministic standard ZIPs, immutable output, filtered dependency notices and rejection of failed test evidence.
+- `pwsh -File tools/release/Test-Updater.ps1 -Fixtures ...`: 18 integration checks passed on PowerShell 7.4.13/Linux. The latest-release API and HTTP downloads were mocked; payload EXEs are synthetic and native launch is mocked. Covers fresh install, upgrade, persistent app/root data, Build preservation, backups, current/downgrade behavior, corrupt hash, unsafe ZIP paths, incompatible SDK, foreign asset URLs, prerelease refusal, persistent-path collision, activation and post-install failure restoration, API denial, lock exclusion, interrupted recovery, recognized 0.1.0 compatibility and managed launcher data/backup/log behavior.
+- actionlint 1.7.7: workflow syntax, expression and job checks passed; shellcheck/pyflakes integrations were disabled because those analyzers were not installed.
+- Optimized Rust Windows x64 gnullvm cross-build: passed; PE imports inspected. Local candidate bundles libunwind.dll and notices. This is not native Windows compilation/execution.
+- Windows-target dependency notice collection: 98 resolved target/build/dev packages; 206 dependency/Rust notice files before the extra LLVM runtime notices. Missing crate notice files were retrieved from exact upstream VCS commits or declared CC0 text with provenance, without selecting a license for original engine code.
 
-- `cargo fmt --all -- --check`: passed.
-- `cargo clippy --workspace --all-targets --locked -j 4 -- -D warnings`: passed.
-- `EGL_PLATFORM=surfaceless cargo test --workspace --locked -j 4`: 8 SDK integration tests, 1 actual GPU pixel-readback test and 1 SDK doctest passed; zero failures/ignored. Unit harnesses with zero tests are not counted as tests.
-- `python3 -m unittest discover -s tools -v`: 5 packaging/updater tests passed. These use synthetic PE/payload fixtures and Linux filesystem behavior, not Windows runtime execution.
-- `python3 tools/smoke_native.py`: passed after documented Xorg restart; actual visible pixels, selection, S/L project round trip, orbit, pan and zoom verified through X11 input and image comparisons.
-- `cargo build --release -p true-engine-viewport --target x86_64-pc-windows-gnullvm --locked -j 4`: passed; optimized x64 PE, identical to the earlier 0.1.0 payload binary.
-- `pwsh -NoProfile -File tools/test_windows_testkit.ps1 -PackageRoot <staged-kit>` using PowerShell 7.4.13 on Linux: passed four script parses, actual payload hashes, tampered-DLL rejection, side-by-side install/preservation, existing-version refusal, a new root launcher, paths with spaces, isolated launch directory, prelaunch backup and log creation. The Windows OS environment gate was simulated and native process launch was MOCKED. This is not Windows PowerShell 5.1 or Windows runtime qualification.
+Configured but NOT established by local tests: GitHub Actions native Windows MSVC builds, Windows PowerShell 5.1 filesystem tests, actual GitHub Release uploads/downloads, the BAT's Windows invocation, interactive Windows GPU behavior and installation on B:. Their completion requires independent CI/Windows evidence. Local GitHub API access returns 403 Forbidden. No workflow execution or asset publication is claimed merely because the workflow/source/tag is pushed.
 
-Earlier recorded checks in docs/VALIDATION.md also include wasm and Windows GNU target compilation, LLVM-MinGW checksum verification, PE imports, and actual EXE/DLL payload installation/reinstallation/rollback on Linux.
-
-Not run here: Windows executable execution, real Windows 11 GPU compatibility, Windows PowerShell 5.1/BAT execution, installation on B:, macOS execution, browser runtime, hardware performance benchmarks. Any PowerShell 7 tests on Linux simulate installer/launcher logic and do not establish Windows behavior.
-
-The native smoke test initially could not run because the prior task's Xorg process had stopped; restarting the documented virtual display resolves that environment prerequisite. No application code was changed to bypass a failing check.
+Tagged 0.1.0 reports and previous packages remain retained. No new rendering/editor feature phase, schema migration or performance claim is introduced. See docs/RELEASE-0.1.1.md, docs/WINDOWS_UPDATES.md and each package's app/manifest.json for exact source/hash/build-time evidence.

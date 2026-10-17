@@ -1,0 +1,13 @@
+# TRUE ENGINE 0.1.1 — standard Windows releases and automatic updater
+
+Previous engine: 0.1.0. SDK 0.1 and project schema 1 remain compatible. No data migration; no new rendering/editor phase. The viewport title now reports the compiled patch version.
+
+Changes: tag-driven GitHub Actions native Windows build/testing; complete standard Windows ZIPs and SHA-256 sidecars; dependency/runtime notice collection; a root double-click latest-stable updater; verified staged app replacement, backups, rollback/recovery, persistent-data preservation, update logs and a version-aware managed launcher. Exact changed source files are available in the tag's Git diff; every package manifest lists payload files/hashes and its exact source commit. Packages follow `True-Engine-v0.1.1-windows-x64.zip` and `.zip.sha256`.
+
+The workflow publishes only after Linux and native Windows CPU/installer checks pass. Windows interactive graphics behavior is not covered by CPU/installer checks; engine/platform qualification remains incomplete. This patch does not implement orthographic/reset, gizmos or Studio features. No first-party license is chosen. Third-party notice collection is an engineering record, not a blanket legal certification.
+
+Local checks: 10 Rust tests (8 SDK, 1 actual offscreen GPU, 1 doctest), clean fmt/clippy, 8 Python tests, 18 PowerShell updater/launcher integration checks on Linux with synthetic binaries/mocked network/native launch, actionlint workflow validation, and optimized Windows gnullvm cross-link. Final source and package hashes are separately verified. Native Windows/GitHub Actions execution, live release downloads and Windows interactive GPU behavior must be verified before claiming them as passed. Local GitHub API calls return 403 Forbidden; source pushes can still work.
+
+Installation: authenticate/extract bootstrap to `B:\True Engine`, double-click `Update True Engine.bat`, then `Start True Engine.bat`. The updater needs a published stable release with both standard assets; absent assets or API denial leave the old installation intact. Legacy Current/Versions and root settings/data remain; managed app data is copied forward unless a conflict forces refusal. Build is never wiped. Full details: docs/WINDOWS_UPDATES.md and the packaged README.
+
+Rollback: automatic on installation/validation failure; interrupted old-app transactions recovered on next run. Prior app and failed payloads remain in Backups\Updates. Manual rollback keeps current app under a new retained name and restores the chosen backup app; data and Build stay untouched. No performance benchmark was run; no performance improvement or Windows production compatibility is claimed.
