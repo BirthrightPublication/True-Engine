@@ -21,6 +21,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          ref: ${{ github.event.release.tag_name || github.ref }}
           persist-credentials: false
       - run: |
           sudo apt-get update
@@ -76,8 +77,75 @@ jobs:
           name: windows-packages
           path: Build/*
           if-no-files-found: error
+  browser-sdk:
+    if: github.event_name != 'release' || (github.event.sender.login != 'github-actions[bot]' && !github.event.release.prerelease)
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-22.04, windows-2022]
+    runs-on: ${{ matrix.os }}
+    env:
+      SDK_BACKENDS: webgl2
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name || github.ref }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: tools/browser/package-lock.json
+      - name: Install pinned Rust and WebAssembly target
+        shell: bash
+        run: |
+          rustup toolchain install 1.85.1 --profile minimal --component rustfmt --component clippy
+          rustup target add wasm32-unknown-unknown --toolchain 1.85.1
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git/db
+            target
+          key: sdk-${{ matrix.os }}-rust-1.85.1-${{ hashFiles('Cargo.lock') }}
+          restore-keys: sdk-${{ matrix.os }}-rust-1.85.1-
+      - name: Install checksum-pinned official wasm-bindgen CLI
+        shell: bash
+        run: |
+          python tools/sdk/install_bindgen.py
+          echo "$GITHUB_WORKSPACE/Build/toolchain/bin" >> "$GITHUB_PATH"
+      - name: Build and test actual browser SDK
+        shell: bash
+        run: |
+          if [[ "$RUNNER_OS" == "Linux" ]]; then
+            python tools/sdk/ci.py --with-browser-deps
+          else
+            python tools/sdk/ci.py
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: sdk-tests-${{ matrix.os }}
+          path: |
+            Build/sdk-ci-evidence.json
+            Build/sdk-ci-logs/
+            Build/sdk-browser-results.json
+            tools/browser/test-results/
+          if-no-files-found: warn
+      - uses: actions/upload-artifact@v4
+        if: matrix.os == 'ubuntu-22.04'
+        with:
+          name: sdk-packages
+          path: |
+            Build/True-Engine-SDK-v*-web.zip
+            Build/True-Engine-SDK-v*-web.zip.sha256
+          if-no-files-found: error
   publish:
-    needs: [linux-checks, windows-checks]
+    needs: [linux-checks, windows-checks, browser-sdk]
     if: startsWith(github.ref, 'refs/tags/v') || (github.event_name == 'release' && github.event.sender.login != 'github-actions[bot]' && !github.event.release.prerelease)
     runs-on: ubuntu-22.04
     permissions:
@@ -90,6 +158,10 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: windows-packages
+          path: Build
+      - uses: actions/download-artifact@v4
+        with:
+          name: sdk-packages
           path: Build
       - name: Publish complete immutable assets after checks
         env:

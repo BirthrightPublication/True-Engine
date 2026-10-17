@@ -1,4 +1,5 @@
-use crate::{geometry, OrbitCamera, Scene};
+use crate::{geometry, scene::Error, NodeId, OrbitCamera, Scene};
+use std::{borrow::Cow, collections::HashMap};
 use wgpu::util::DeviceExt;
 #[repr(C)]
 #[derive(Clone, Copy, bytemuck::Pod, bytemuck::Zeroable)]
@@ -130,42 +131,78 @@ impl Renderer {
         self.depth = Self::depth(device, width, height);
     }
     pub fn upload(&mut self, device: &wgpu::Device, scene: &Scene, selected: Option<u64>) {
+        self.upload_with_meshes(device, scene, selected, &HashMap::new())
+            .expect("validated scene must fit the renderer's device limits");
+    }
+    /// Upload validated custom indexed meshes, or each node's primitive fallback.
+    ///
+    /// Custom geometry remains separate from project schema 1. Validation errors
+    /// leave the previously uploaded GPU geometry unchanged.
+    pub fn upload_with_meshes(
+        &mut self,
+        device: &wgpu::Device,
+        scene: &Scene,
+        selected: Option<u64>,
+        meshes: &HashMap<NodeId, geometry::Mesh>,
+    ) -> Result<(), Error> {
+        scene.validate()?;
+        for (id, mesh) in meshes {
+            if !scene.nodes().iter().any(|node| node.id == *id) {
+                return Err(Error::Invalid("mesh references an unknown node".into()));
+            }
+            mesh.validate()?;
+        }
         let mut data = Vec::new();
         for n in scene.nodes() {
-            if let Some(p) = n.primitive {
-                let mesh = geometry::mesh(p);
-                let world = scene.world_matrix(n.id).unwrap();
-                for tri in mesh.indices.chunks_exact(3) {
-                    let a = world.transform_point3(mesh.vertices[tri[0] as usize]);
-                    let b = world.transform_point3(mesh.vertices[tri[1] as usize]);
-                    let c = world.transform_point3(mesh.vertices[tri[2] as usize]);
-                    let light = 0.3
-                        + 0.7
-                            * (b - a)
-                                .cross(c - a)
-                                .normalize_or_zero()
-                                .dot(glam::Vec3::new(0.4, 0.8, 0.5).normalize())
-                                .abs();
-                    let color = if selected == Some(n.id) {
-                        [1., 0.7, 0.1, 1.]
-                    } else {
-                        n.material.color
-                    };
-                    for position in [a, b, c] {
-                        data.push(Vertex {
-                            position: position.to_array(),
-                            color: [
-                                color[0] * light,
-                                color[1] * light,
-                                color[2] * light,
-                                color[3],
-                            ],
-                        });
-                    }
+            let mesh = match meshes.get(&n.id) {
+                Some(mesh) => Cow::Borrowed(mesh),
+                None => match n.primitive {
+                    Some(primitive) => Cow::Owned(geometry::mesh(primitive)),
+                    None => continue,
+                },
+            };
+            let count = data
+                .len()
+                .checked_add(mesh.indices.len())
+                .ok_or_else(|| Error::Invalid("mesh vertex count overflow".into()))?;
+            let bytes = count
+                .checked_mul(std::mem::size_of::<Vertex>())
+                .ok_or_else(|| Error::Invalid("mesh buffer size overflow".into()))?;
+            if count > u32::MAX as usize || bytes as u64 > device.limits().max_buffer_size {
+                return Err(Error::Invalid("meshes exceed device buffer limits".into()));
+            }
+            data.try_reserve(mesh.indices.len())
+                .map_err(|_| Error::Invalid("cannot allocate mesh upload buffer".into()))?;
+            let world = scene.world_matrix(n.id).unwrap();
+            for tri in mesh.indices.chunks_exact(3) {
+                let a = world.transform_point3(mesh.vertices[tri[0] as usize]);
+                let b = world.transform_point3(mesh.vertices[tri[1] as usize]);
+                let c = world.transform_point3(mesh.vertices[tri[2] as usize]);
+                let light = 0.3
+                    + 0.7
+                        * (b - a)
+                            .cross(c - a)
+                            .normalize_or_zero()
+                            .dot(glam::Vec3::new(0.4, 0.8, 0.5).normalize())
+                            .abs();
+                let color = if selected == Some(n.id) {
+                    [1., 0.7, 0.1, 1.]
+                } else {
+                    n.material.color
+                };
+                for position in [a, b, c] {
+                    data.push(Vertex {
+                        position: position.to_array(),
+                        color: [
+                            color[0] * light,
+                            color[1] * light,
+                            color[2] * light,
+                            color[3],
+                        ],
+                    });
                 }
             }
         }
-        self.count = data.len() as u32;
         if !data.is_empty() {
             self.vertices = device.create_buffer_init(&wgpu::util::BufferInitDescriptor {
                 label: Some("scene"),
@@ -173,6 +210,8 @@ impl Renderer {
                 usage: wgpu::BufferUsages::VERTEX,
             });
         }
+        self.count = data.len() as u32;
+        Ok(())
     }
     pub fn draw(
         &self,

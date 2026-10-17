@@ -1,6 +1,9 @@
 use glam::{Mat4, Quat, Vec3};
 use serde::{Deserialize, Serialize};
-use std::collections::HashSet;
+use std::{
+    borrow::Cow,
+    collections::{HashMap, HashSet},
+};
 
 pub type NodeId = u64;
 #[derive(Clone, Copy, Debug, Serialize, Deserialize, PartialEq)]
@@ -135,40 +138,63 @@ impl Scene {
     }
     /// Exact nearest triangle intersection, including parent transforms and nonuniform scale.
     pub fn pick(&self, origin: Vec3, direction: Vec3) -> Option<NodeId> {
+        self.pick_with_meshes(origin, direction, &HashMap::new())
+    }
+    /// Pick caller-supplied meshes, falling back to each node's primitive.
+    ///
+    /// Meshes are separate from project schema 1. An override can supply geometry
+    /// for a node with no primitive. Invalid meshes/references return `None`.
+    pub fn pick_with_meshes(
+        &self,
+        origin: Vec3,
+        direction: Vec3,
+        meshes: &HashMap<NodeId, crate::geometry::Mesh>,
+    ) -> Option<NodeId> {
+        if !origin.is_finite()
+            || meshes.iter().any(|(id, mesh)| {
+                !self.nodes.iter().any(|node| node.id == *id) || mesh.validate().is_err()
+            })
+        {
+            return None;
+        }
         let direction = direction.try_normalize()?;
         let mut closest = f32::INFINITY;
         let mut hit = None;
         for n in &self.nodes {
-            if let Some(p) = n.primitive {
-                let mesh = crate::geometry::mesh(p);
-                let world = self.world_matrix(n.id)?;
-                for t in mesh.indices.chunks_exact(3) {
-                    let a = world.transform_point3(mesh.vertices[t[0] as usize]);
-                    let b = world.transform_point3(mesh.vertices[t[1] as usize]);
-                    let c = world.transform_point3(mesh.vertices[t[2] as usize]);
-                    let e1 = b - a;
-                    let e2 = c - a;
-                    let h = direction.cross(e2);
-                    let det = e1.dot(h);
-                    if det.abs() < 1e-7 {
-                        continue;
-                    }
-                    let inv = 1. / det;
-                    let s = origin - a;
-                    let u = inv * s.dot(h);
-                    if !(0.0..=1.0).contains(&u) {
-                        continue;
-                    }
-                    let q = s.cross(e1);
-                    let v = inv * direction.dot(q);
-                    if v < 0. || u + v > 1. {
-                        continue;
-                    }
-                    let distance = inv * e2.dot(q);
-                    if distance >= 0. && distance < closest {
-                        closest = distance;
-                        hit = Some(n.id);
-                    }
+            let mesh = match meshes.get(&n.id) {
+                Some(mesh) => Cow::Borrowed(mesh),
+                None => match n.primitive {
+                    Some(primitive) => Cow::Owned(crate::geometry::mesh(primitive)),
+                    None => continue,
+                },
+            };
+            let world = self.world_matrix(n.id)?;
+            for t in mesh.indices.chunks_exact(3) {
+                let a = world.transform_point3(mesh.vertices[t[0] as usize]);
+                let b = world.transform_point3(mesh.vertices[t[1] as usize]);
+                let c = world.transform_point3(mesh.vertices[t[2] as usize]);
+                let e1 = b - a;
+                let e2 = c - a;
+                let h = direction.cross(e2);
+                let det = e1.dot(h);
+                if det.abs() < 1e-7 {
+                    continue;
+                }
+                let inv = 1. / det;
+                let s = origin - a;
+                let u = inv * s.dot(h);
+                if !(0.0..=1.0).contains(&u) {
+                    continue;
+                }
+                let q = s.cross(e1);
+                let v = inv * direction.dot(q);
+                if v < 0. || u + v > 1. {
+                    continue;
+                }
+                let distance = inv * e2.dot(q);
+                if distance >= 0. && distance < closest {
+                    closest = distance;
+                    hit = Some(n.id);
                 }
             }
         }

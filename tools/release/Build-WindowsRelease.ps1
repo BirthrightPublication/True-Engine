@@ -33,7 +33,8 @@ try {
     $env:RUSTFLAGS='-C target-feature=+crt-static'
     Run-Checked cargo @('fmt','--all','--','--check')
     Run-Checked cargo @('clippy','--workspace','--all-targets','--locked','--','-D','warnings')
-    Run-Checked cargo @('test','-p','true-engine','--test','sdk','--locked')
+    Run-Checked cargo @('test','-p','true-engine','--test','sdk','--test','mesh_sdk','--locked')
+    Run-Checked cargo @('test','-p','true-engine-web','--test','document','--locked')
     Run-Checked cargo @('test','-p','true-engine','--doc','--locked')
     Run-Checked python @('-m','unittest','discover','-s','tools','-v')
     Run-Checked python @('tools/release/test_fixtures.py',(Join-Path $work 'fixtures'))

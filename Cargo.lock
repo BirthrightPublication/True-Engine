@@ -1512,7 +1512,7 @@ dependencies = [
 
 [[package]]
 name = "true-engine"
-version = "0.1.2"
+version = "0.1.3"
 dependencies = [
  "bytemuck",
  "glam",
@@ -1525,7 +1525,7 @@ dependencies = [
 
 [[package]]
 name = "true-engine-viewport"
-version = "0.1.2"
+version = "0.1.3"
 dependencies = [
  "console_error_panic_hook",
  "glam",
@@ -1536,6 +1536,20 @@ dependencies = [
  "web-sys",
  "wgpu",
  "winit",
+]
+
+[[package]]
+name = "true-engine-web"
+version = "0.1.3"
+dependencies = [
+ "console_error_panic_hook",
+ "serde",
+ "serde_json",
+ "true-engine",
+ "wasm-bindgen",
+ "wasm-bindgen-futures",
+ "web-sys",
+ "wgpu",
 ]
 
 [[package]]

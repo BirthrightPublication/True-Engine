@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.3 — embeddable browser SDK
+
+- Added a compiled, versioned browser ESM/WASM SDK over the existing renderer, with host-owned canvases, indexed meshes, material/transform/camera operations, picking, serialization and explicit disposal.
+- Added validated external-mesh Rust APIs without changing existing signatures or native schema 1. Browser mesh/camera documents use a separate versioned envelope; no automatic migration.
+- Added real GPU/browser example tests, API declaration checks, integrity-gated deterministic SDK packaging, Windows build instructions and Linux/Windows release checks.
+- Documented the actual Plate Studio asset/server integration requirements without changing its repository. See docs/RELEASE-0.1.3.md and docs/SDK_VALIDATION-0.1.3.md for actual evidence and limitations.
+
+
 ## 0.1.0 — initial implementation, unreleased
 
 Added application-agnostic scene/camera/geometry/project/render modules; native and browser viewport entry points; SDK contract; automated scene and rendered-pixel tests; Windows ZIP packaging and integrity-checked staged updater with backups/rollback.

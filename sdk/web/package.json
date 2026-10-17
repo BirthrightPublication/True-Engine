@@ -1,0 +1,10 @@
+{
+  "name": "@birthright/true-engine",
+  "version": "0.1.3",
+  "private": true,
+  "type": "module",
+  "description": "Version-pinned True Engine browser SDK; owner licensing decision pending",
+  "exports": {".": {"types": "./index.d.ts", "import": "./index.js"}},
+  "types": "./index.d.ts",
+  "files": ["*.js", "*.wasm", "*.d.ts", "notices", "LICENSING.md"]
+}

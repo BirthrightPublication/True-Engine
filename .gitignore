@@ -28,3 +28,10 @@ __pycache__/
 # Updater assets if this checkout itself is B:\True Engine\Build
 /Releases/**/*.zip
 /Releases/**/*.zip.sha256
+
+# Browser SDK test dependencies and reports
+node_modules/
+/test-results/
+/playwright-report/
+/tools/browser/test-results/
+/tools/browser/playwright-report/

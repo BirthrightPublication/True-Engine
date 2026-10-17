@@ -1,9 +1,9 @@
 [workspace]
-members = ["crates/true-engine", "examples/viewport"]
+members = ["crates/true-engine", "examples/viewport", "crates/true-engine-web"]
 resolver = "2"
 
 [workspace.package]
-version = "0.1.2"
+version = "0.1.3"
 edition = "2021"
 
 [profile.release]

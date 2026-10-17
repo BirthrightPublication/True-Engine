@@ -1,0 +1,6 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><link rel="icon" href="data:,"><title>True Engine SDK integration</title><link rel="stylesheet" href="style.css"></head>
+<body><h1>True Engine SDK integration</h1><p>Actual Rust/wgpu rendering. Left drag: orbit. Right drag: pan. Wheel: zoom. R: reset. Click: pick.</p>
+<nav><button id="reset">Reset camera</button><button id="material">Change material</button><button id="save">Save project file</button><label>Reopen project <input type="file" id="open" accept=".json,application/json"></label></nav>
+<canvas id="viewport" width="640" height="480" tabindex="0" aria-label="3D viewport"></canvas><p id="status" role="status">Loading engine…</p><pre id="selected">Selected: none</pre>
+<script type="module" src="app.js"></script></body></html>

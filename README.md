@@ -1,6 +1,6 @@
 # TRUE ENGINE
 
-Current engine source: **0.1.2**, SDK **0.1**, scene schema **1**. This is a developer viewport/engine foundation, not a production-qualified engine or License Plate Obfuscation Studio.
+Current engine source: **0.1.3** (additive browser SDK patch), SDK **0.1**, scene schema **1**. This is a developer viewport/engine foundation, not a production-qualified engine or License Plate Obfuscation Studio.
 
 Published: [v0.1.2 Windows release](https://github.com/BirthrightPublication/True-Engine/releases/tag/v0.1.2). For one-time setup extract the updater bootstrap into `B:\True Engine` and run **Update True Engine.bat**. Subsequent versions need only that double-click. Native Windows updater/build tests and live public downloads/BAT passed; interactive GPU compatibility remains a user-machine check. [Published asset hashes and CI evidence](releases/0.1.2/github-release.json).
 
@@ -25,17 +25,13 @@ python3 -m unittest discover -s tools -v
 
 Left drag orbits, right drag pans, wheel zooms, click selects (gold highlight). S/L saves/loads project.json in the native example's working directory. The sample contains three primitives. See [SDK contract](docs/SDK-0.1.md) and [validation evidence](docs/VALIDATION.md) for limits.
 
-## Browser
+## Browser SDK
 
-```
-rustup target add wasm32-unknown-unknown
-cargo build -p true-engine-viewport --lib --target wasm32-unknown-unknown --locked
-# Install a wasm-bindgen-cli matching Cargo.lock's wasm-bindgen version.
-wasm-bindgen --target web --out-dir web/pkg target/wasm32-unknown-unknown/debug/true_engine_viewport.wasm
-python3 -m http.server --directory web 8000
-```
+The embeddable `@birthright/true-engine@0.1.3` SDK uses the existing Rust/wgpu renderer on a host-owned canvas. It ships compiled WASM, ES modules, TypeScript declarations, compatibility/hash manifests, notices and a working browser integration example. It supports primitives/custom indexed meshes, opaque materials, orbit/pan/zoom/reset, picking and browser-project save/reopen. Native schema 1 and Rust SDK 0.1 remain compatible.
 
-Use a modern browser with WebGPU or WebGL2. Browser bundling and interactive behavior require separate verification; browser storage UI is not supplied.
+Build only the SDK with `python3 tools/sdk/build.py`, serve `Build/sdk-web` over HTTP and open its `example/` path. See [browser public API](docs/BROWSER_SDK_API.md), [Windows SDK build instructions](docs/SDK_WINDOWS_BUILD.md), [browser tests](tools/browser/README.md) and [Plate Studio integration plan](docs/PLATE_STUDIO_INTEGRATION.md). The latter is grounded in the actual consumer source; its existing server/package must admit the new JS/WASM assets before integration. No consumer repository was changed.
+
+The older `web/` winit demo remains available; its automatic standalone entry point is separate from the SDK.
 
 ## Historical 0.1.0 packaging tools
 

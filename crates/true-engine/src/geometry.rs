@@ -1,8 +1,48 @@
 use crate::Primitive;
 use glam::Vec3;
+use serde::{Deserialize, Serialize};
+
+pub const MAX_MESH_VERTICES: usize = 1_000_000;
+pub const MAX_MESH_INDICES: usize = 3_000_000;
+
+/// Caller-provided indexed triangles in a node's local coordinate system.
+#[derive(Clone, Debug, Serialize, Deserialize, PartialEq)]
 pub struct Mesh {
     pub vertices: Vec<Vec3>,
     pub indices: Vec<u32>,
+}
+impl Mesh {
+    /// Check size, finite positions and complete, in-range triangle indices.
+    ///
+    /// Deserialization alone does not validate a mesh. Render upload validates
+    /// it before changing retained GPU geometry.
+    pub fn validate(&self) -> Result<(), crate::scene::Error> {
+        if self.vertices.is_empty()
+            || self.vertices.len() > MAX_MESH_VERTICES
+            || self.indices.is_empty()
+            || self.indices.len() > MAX_MESH_INDICES
+            || self.indices.len() % 3 != 0
+        {
+            return Err(crate::scene::Error::Invalid(
+                "mesh must contain bounded indexed triangles".into(),
+            ));
+        }
+        if self.vertices.iter().any(|position| !position.is_finite()) {
+            return Err(crate::scene::Error::Invalid(
+                "mesh positions must be finite".into(),
+            ));
+        }
+        if self
+            .indices
+            .iter()
+            .any(|&index| index as usize >= self.vertices.len())
+        {
+            return Err(crate::scene::Error::Invalid(
+                "mesh index is outside the vertex array".into(),
+            ));
+        }
+        Ok(())
+    }
 }
 pub fn mesh(p: Primitive) -> Mesh {
     match p {
