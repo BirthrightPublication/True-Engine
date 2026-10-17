@@ -1,5 +1,5 @@
 # Next objective
 
-Finish verification of the 0.1.2 corrective delivery patch: confirm the GitHub Windows Actions run and standard ZIP/checksum assets, then run Update True Engine.bat and the viewport on the owner's Windows 11 machine. Diagnose update/rollback/data-preservation/startup defects before adding engine features. GitHub API 403, missing assets or unrun native checks must remain explicit blockers, never reported as successes.
+The 0.1.2 standard GitHub Release, native Windows build/updater tests, and live Windows API/download/install/upgrade/BAT smoke are verified. Collect the owner's Windows 11 interactive viewport and actual B:\True Engine test results next, and fix any startup, driver, graphics, save/reopen or recovery defect before new engine features.
 
-Keep old 0.1.0 tags, packages, Current/Versions installations, settings and user data. API stays SDK 0.1 / schema 1 without migration. All future engine feature phases still need explicit approval; do not modify License Plate Obfuscation Studio's repository or install directory.
+Keep the versioned tag/source/package association in releases/0.1.2/github-release.json. Future release tags trigger native build/test/package/upload; live smoke checks validate actual public assets. Preserve earlier tags/releases/Build and all user data. SDK 0.1/schema 1 stay compatible; no data migration. No new feature phase without owner approval. Never modify License Plate Obfuscation Studio's repository silently.

@@ -1,3 +1,15 @@
+# TRUE ENGINE 0.1.2 — verified release and automatic updater
+
+- Source: v0.1.2 / 8d751dbe76ca1dfd02c826e60ec68dda7e7d51b0.
+- Native Windows candidate CI 38993876153 passed; tagged build/publication 38994274833 passed and uploaded the four actual GitHub assets.
+- Native Windows MSVC build, 8 SDK tests, 1 SDK doctest, 8 Python tests and all 18 updater checks under Windows PowerShell 5.1 passed. Static CRT/PE checks confirmed only Windows system DLL imports.
+- Live Windows run 38994649708 passed: real unauthenticated public latest-release API, actual asset downloads/SHA-256/payload hashes, fresh install, a forced-older-version-marker upgrade using real payloads, data/Build preservation, and the actual BAT already-current invocation. The forced marker is a test fixture, not evidence of executing an older real application binary.
+- Downloaded published assets independently, verified outer sidecars, ZIP CRCs, every payload/bootstrap hash, and the exact source commit/tag. Public releases/latest resolves to v0.1.2.
+- Interactive Windows viewport/GPU execution and the owner's actual B: filesystem remain unrun. No production graphics compatibility or full power-loss atomicity claim.
+- Exact asset hashes, URLs and workflow links: releases/0.1.2/github-release.json.
+
+## Earlier local and failed-run evidence (retained for traceability)
+
 # TRUE ENGINE 0.1.1 delivery-patch verification
 
 Actual checks completed in the Linux cloud environment:

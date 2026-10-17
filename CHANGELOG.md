@@ -25,3 +25,7 @@ Added standard versioned Windows ZIP/checksum assets, tag-gated GitHub Actions w
 ## 0.1.2 — native Windows PowerShell ZIP compatibility
 
 Fixed the missing explicit System.IO.Compression assembly load found by the native Windows PowerShell 5.1 test. Preserved the failed 0.1.1 source tag and local candidate; no misleading release upload claim. Added native-error annotations, clean candidate labeling, explicit exit-status logging and credential-free Cargo build caches. SDK 0.1/schema 1 remain compatible; no data migration or new engine features. Release assets remain gated on actual native CI success.
+
+### 0.1.2 publication verification
+
+Native Windows build/tests and live public API/download/install/upgrade/BAT checks passed. Tagged standard ZIP/checksum and bootstrap assets were published on GitHub and independently hash-verified; releases/latest resolves to v0.1.2. No API/schema/data migration. Interactive Windows viewport/GPU remains a user-machine check. Exact hashes/source/CI links are recorded under releases/0.1.2.

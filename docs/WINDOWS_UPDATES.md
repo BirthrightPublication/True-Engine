@@ -1,6 +1,6 @@
 # GitHub Windows release and update system
 
-Repository: https://github.com/BirthrightPublication/True-Engine. Engine patch: 0.1.1; SDK 0.1, schema 1, no data migration. This implements delivery infrastructure, not a new feature phase or production qualification.
+Repository: https://github.com/BirthrightPublication/True-Engine. Engine patch: 0.1.2; SDK 0.1, schema 1, no data migration. This implements delivery infrastructure, not a new feature phase or production qualification.
 
 ## One-time installation and subsequent updates
 
@@ -42,3 +42,7 @@ To reproduce locally on a Windows x64 MSVC build machine: install Rust/rustup 1.
 ## Validation boundary
 
 See `docs/RELEASE-0.1.1.md` and TEST_REPORT.md. Local Linux tests use mocked GitHub HTTP and synthetic PE files for updater logic. Native Windows workflow runs, GitHub asset publication and live updater behavior must be confirmed independently. If the API is blocked in the current environment, report that concrete blocker rather than claiming an upload or automatic update succeeded.
+
+## Verified first published release
+
+v0.1.2 was built and published by Actions run 38994274833 at source 8d751dbe76ca1dfd02c826e60ec68dda7e7d51b0. Native live Windows run 38994649708 verified public metadata/downloads, hashes, fresh install, a synthetic-older-marker upgrade with real payload, data/Build preservation and the actual BAT. Viewport GPU execution remains unverified. The failed 0.1.1 tag is retained; no successful assets were claimed for its failed run. Current asset hashes and exact workflow URLs are in releases/0.1.2/github-release.json.

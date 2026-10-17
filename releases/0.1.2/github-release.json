@@ -1,0 +1,58 @@
+{
+  "repository": "BirthrightPublication/True-Engine",
+  "version": "0.1.2",
+  "sdk": "0.1",
+  "schema": 1,
+  "migration": "none",
+  "source_tag": "v0.1.2",
+  "source_commit": "8d751dbe76ca1dfd02c826e60ec68dda7e7d51b0",
+  "source_branch": "main",
+  "release_url": "https://github.com/BirthrightPublication/True-Engine/releases/tag/v0.1.2",
+  "latest_stable_url_verified": "https://github.com/BirthrightPublication/True-Engine/releases/tag/v0.1.2",
+  "github_release_published": true,
+  "artifacts": [
+    {
+      "filename": "True-Engine-v0.1.2-updater-bootstrap.zip",
+      "bytes": 8230,
+      "sha256": "742bf9955b82baac809242bb2516f3d70f70cb1964a7590ad6ae51f610858235",
+      "url": "https://github.com/BirthrightPublication/True-Engine/releases/download/v0.1.2/True-Engine-v0.1.2-updater-bootstrap.zip",
+      "checksum_url": "https://github.com/BirthrightPublication/True-Engine/releases/download/v0.1.2/True-Engine-v0.1.2-updater-bootstrap.zip.sha256",
+      "download_verified": true
+    },
+    {
+      "filename": "True-Engine-v0.1.2-windows-x64.zip",
+      "bytes": 3018523,
+      "sha256": "14da9b37861b5a1e12353883b1b6354938ae661a070762bd9b9105126d867ec1",
+      "url": "https://github.com/BirthrightPublication/True-Engine/releases/download/v0.1.2/True-Engine-v0.1.2-windows-x64.zip",
+      "checksum_url": "https://github.com/BirthrightPublication/True-Engine/releases/download/v0.1.2/True-Engine-v0.1.2-windows-x64.zip.sha256",
+      "download_verified": true
+    }
+  ],
+  "source_validation_run": "https://github.com/BirthrightPublication/True-Engine/actions/runs/38993876153",
+  "tagged_build_and_publication_run": "https://github.com/BirthrightPublication/True-Engine/actions/runs/38994274833",
+  "live_native_windows_run": "https://github.com/BirthrightPublication/True-Engine/actions/runs/38994649708",
+  "native_windows": {
+    "compiler": "Rust 1.85.1 MSVC x64 static CRT",
+    "sdk_tests": 8,
+    "doctests": 1,
+    "python_tests": 8,
+    "updater_integration_checks": 18,
+    "live_http_download_install_upgrade_bat": true,
+    "live_upgrade_note": "Forced older version marker on real released payload; separate native synthetic fixtures test legacy/data/failure paths",
+    "viewport_gpu_executed": false
+  },
+  "linux": {
+    "sdk_tests": 8,
+    "gpu_pixel_tests": 1,
+    "doctests": 1,
+    "python_tests": 8,
+    "updater_integration_checks": 18
+  },
+  "limitations": [
+    "Interactive Windows viewport/GPU and owner B: drive remain user-machine checks",
+    "Full power-loss/disk-corruption atomicity not claimed",
+    "Cloud proxy blocks api.github.com/PR operations; native Windows live public API succeeded",
+    "No first-party open-source license selected"
+  ],
+  "prior_failed_tag": "v0.1.1 retained; failed Windows ZIP assembly test, no assets published by that run"
+}

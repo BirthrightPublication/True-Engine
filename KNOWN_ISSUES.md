@@ -1,11 +1,11 @@
-# Current 0.1.1 delivery limitations
+# Current 0.1.2 limits
 
-- The new automatic updater and native Windows release workflow are implemented; local Linux tests do not prove Windows runtime compatibility or successful GitHub publication.
-- API access in this cloud environment returns 403; the updater needs a published stable release with both standard assets. Until one exists, it fails safely without changing app files.
-- Interactive Windows GPU, native BAT/PowerShell 5.1 and live GitHub end-to-end checks remain unverified locally; CI provides native CPU/updater tests once it actually runs.
-- Process-stop recovery handles journaled old-app backups; full power-loss/disk-corruption atomicity is not claimed.
-- Existing root launchers are preserved, not silently replaced. Legacy Current/Versions use old launchers/data; the new managed launcher defaults to a separate Data/ManagedViewport workspace.
-- Engine functionality is unchanged apart from version titles; remaining engine limitations below still apply. No performance benchmark or production qualification.
+- Native Windows updater/network/BAT and packaging checks passed; interactive Windows viewport/GPU and the owner's B: drive remain manual checks.
+- v0.1.2 stable GitHub assets are published and independently verified. Cloud proxy restrictions still block local API/PR tools; they did not block the native Windows public updater or Actions publication.
+- The failed v0.1.1 tag/local candidate are retained for history; use v0.1.2 bootstrap and standard assets.
+- Root launchers/user state/Build/legacy installations are retained; the managed viewport defaults to a separate Data/ManagedViewport workspace. User configuration can explicitly select another data directory.
+- Rollback handles tested installation/validation failures and journaled old-app recovery; no full power-loss/disk-corruption atomicity claim.
+- Rendering/editor capabilities are unchanged. Camera/selection persistence, orthographic/reset, gizmos, physics and Studio remain absent. No performance benchmarks or production qualification.
 
 ## Historical 0.1.0 test-kit limitations
 

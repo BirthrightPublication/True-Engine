@@ -2,6 +2,8 @@
 
 Current engine source: **0.1.2**, SDK **0.1**, scene schema **1**. This is a developer viewport/engine foundation, not a production-qualified engine or License Plate Obfuscation Studio.
 
+Published: [v0.1.2 Windows release](https://github.com/BirthrightPublication/True-Engine/releases/tag/v0.1.2). For one-time setup extract the updater bootstrap into `B:\True Engine` and run **Update True Engine.bat**. Subsequent versions need only that double-click. Native Windows updater/build tests and live public downloads/BAT passed; interactive GPU compatibility remains a user-machine check. [Published asset hashes and CI evidence](releases/0.1.2/github-release.json).
+
 The [standard GitHub release/updater guide](docs/WINDOWS_UPDATES.md) describes tag-driven native Windows builds and `Update True Engine.bat`. Existing 0.1.0 test-kit artifacts, tagged source and install directories are retained. Windows runtime and the new GitHub workflow must be verified separately from local Linux checks.
 
 
@@ -35,7 +37,9 @@ python3 -m http.server --directory web 8000
 
 Use a modern browser with WebGPU or WebGL2. Browser bundling and interactive behavior require separate verification; browser storage UI is not supplied.
 
-## Windows release and updater
+## Historical 0.1.0 packaging tools
+
+The commands below reproduce older 0.1.0 packages. For current standard releases use `tools/release/Build-WindowsRelease.ps1` at the exact version tag and [the current update guide](docs/WINDOWS_UPDATES.md); do not use the legacy packager for new releases.
 
 For a scripted build, run `powershell -File tools\windows-release.ps1` on Windows; it records actual command results and packages only after they pass. Interactive Windows qualification is still manual.
 
