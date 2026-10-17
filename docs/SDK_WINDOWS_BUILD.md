@@ -19,20 +19,21 @@ From a developer PowerShell terminal in the exact tagged True Engine checkout:
 ```powershell
 rustup toolchain install 1.85.1 --profile minimal --component rustfmt --component clippy
 rustup target add wasm32-unknown-unknown --toolchain 1.85.1
-cargo +1.85.1 install wasm-bindgen-cli --version 0.2.129 --locked
+python tools\sdk\install_bindgen.py --output 'B:\True Engine\Build\SDK-Tools\bin'
+$env:PATH = 'B:\True Engine\Build\SDK-Tools\bin;' + $env:PATH
 rustc --version
 wasm-bindgen --version
 python --version
 node --version
 ```
 
-The required wasm-bindgen CLI version must match `Cargo.lock` exactly. The build
-script checks both pins. If compiling the CLI requires a newer compiler due to
-its own developer dependencies, install that separate toolchain for the CLI
-build while retaining 1.85.1 for this engine. An official wasm-bindgen 0.2.129
-Windows prebuilt CLI is an alternative: verify its archive against the upstream
-release checksum before adding its directory to PATH. Do not run an unverified
-third-party CLI binary. No script here installs system tools automatically.
+The CLI installer downloads the official wasm-bindgen 0.2.129 Windows x64
+archive over HTTPS and checks the pinned SHA-256
+`79e348c169d0c10c0b287647f1e753d0985353ca96800bc29be8f4261baf13e6`
+before extracting only its exact executable. It verifies the reported CLI version
+and never disables TLS or package verification. Rust and CLI pins must match this
+source; build.py checks them. Run these source tools from the exact checkout.
+No system prerequisite is installed automatically by Build-Windows.ps1.
 
 ## Source and output directories
 
