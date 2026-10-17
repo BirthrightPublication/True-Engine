@@ -49,3 +49,5 @@ This Linux cloud machine cannot access a Windows B: drive. A cross-built Windows
 The [master development roadmap](docs/ROADMAP.md) defines release phases, the permanent development directive, and the next practical v0.1 foundation patch.
 
 Authoritative source: https://github.com/BirthrightPublication/True-Engine. See [GitHub workflow rules](docs/GITHUB_REPOSITORY_RULES.md). Release provenance under `releases/` binds downloadable package SHA-256 values to immutable source tags; a provenance record alone does not mean a binary is hosted on GitHub Releases.
+
+Licensing of Birthright's original code remains the owner's decision; no open-source license is selected. See [LICENSING.md](LICENSING.md), [publication review](docs/PUBLICATION_REVIEW.md), and [locked dependency-license inventory](docs/DEPENDENCY_LICENSES.json). Version 0.1.0 is a development candidate, not production-ready or commercially cleared. Source publication, tagged builds, platform qualification and binary release uploads are separate states.

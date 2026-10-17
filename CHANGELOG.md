@@ -13,3 +13,7 @@ Reuses the existing optimized Windows EXE unchanged. Adds a directly runnable po
 ### Repository preservation and release governance
 
 Preserved the verified 0.1.0 source and immutable v0.1.0 tag on GitHub. Added permanent repository/branch/PR/release rules, private-state ignore patterns, and source-to-package provenance. Engine code, binary ZIPs, SDK and schema are unchanged. GitHub API access is forbidden in this environment; PR creation and binary release uploads are not confirmed.
+
+### Source-publication review (no engine version change)
+
+Reviewed source exclusions, common secret patterns, first-party runtime/install paths and the locked dependency license metadata. Added publication review, an inventory of 245 declared third-party package licenses, and explicit owner-pending licensing status. No open-source license selected, no engine/API/schema change, no tag moved, no binary replaced. Complete shipped-dependency notices, vulnerability audit and platform runtime qualification remain outstanding; GitHub API access still blocks PR/release uploads.
