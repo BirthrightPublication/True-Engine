@@ -9,3 +9,7 @@ Compatibility: SDK 0.1 and project schema 1. Migration: none; unsupported schema
 ### 0.1.0 distribution revision 2 — Windows first-time test kit
 
 Reuses the existing optimized Windows EXE unchanged. Adds a directly runnable portable layout, `START APPLICATION.bat`, an optional side-by-side B-drive installer, dependency/integrity checks, isolated test data, prelaunch project backup, launch logs, and `README - FIRST TIME SETUP.txt`. No Rust or Python runtime is needed to launch this kit. Earlier ZIPs and working versions are preserved. SDK 0.1/schema 1, no migration or breaking engine changes. Windows runtime qualification remains pending; see TEST_REPORT.md and KNOWN_ISSUES.md.
+
+### Repository preservation and release governance
+
+Preserved the verified 0.1.0 source and immutable v0.1.0 tag on GitHub. Added permanent repository/branch/PR/release rules, private-state ignore patterns, and source-to-package provenance. Engine code, binary ZIPs, SDK and schema are unchanged. GitHub API access is forbidden in this environment; PR creation and binary release uploads are not confirmed.

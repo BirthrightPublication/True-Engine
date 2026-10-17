@@ -3,3 +3,24 @@
 /web/pkg/
 __pycache__/
 /project.json
+
+# Credentials, local private state, and installed application directories
+.env
+.env.*
+!.env.example
+!.env.sample
+*.pem
+*.key
+*.p12
+*.pfx
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+/Data/
+/UserData/
+/Backups/
+/Current/
+/Versions/
+/.true-engine/

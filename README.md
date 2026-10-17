@@ -47,3 +47,5 @@ Double-click Update.cmd, enter ZIP path and trusted SHA-256, then Launch.cmd. Ro
 This Linux cloud machine cannot access a Windows B: drive. A cross-built Windows candidate kit is staged in the local Build directory, including the required libunwind.dll. Copy/extract it to the Windows location using docs/RELEASE-0.1.0.md. No installation on B: or Windows runtime verification is implied by this artifact. Do not start future release phases without owner approval.
 
 The [master development roadmap](docs/ROADMAP.md) defines release phases, the permanent development directive, and the next practical v0.1 foundation patch.
+
+Authoritative source: https://github.com/BirthrightPublication/True-Engine. See [GitHub workflow rules](docs/GITHUB_REPOSITORY_RULES.md). Release provenance under `releases/` binds downloadable package SHA-256 values to immutable source tags; a provenance record alone does not mean a binary is hosted on GitHub Releases.
