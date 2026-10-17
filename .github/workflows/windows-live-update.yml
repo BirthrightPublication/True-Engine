@@ -1,0 +1,60 @@
+name: Live Windows updater smoke
+on:
+  workflow_run:
+    workflows: [Engine checks and Windows release]
+    types: [completed]
+  push:
+    branches: [main]
+    paths: [.github/workflows/windows-live-update.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  live-update:
+    if: github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && startsWith(github.event.workflow_run.head_branch, 'v'))
+    runs-on: windows-2022
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+          persist-credentials: false
+      - name: Real public GitHub lookup, download, install, upgrade and BAT invocation
+        shell: powershell
+        run: |
+          $ErrorActionPreference='Stop'
+          $ProgressPreference='SilentlyContinue'
+          . tools/release/Update-TrueEngine.ps1
+          $root=Join-Path $env:RUNNER_TEMP ('Engine live update '+[guid]::NewGuid().ToString('N'))
+          $null=New-Item -ItemType Directory -Path (Join-Path $root 'Build') -Force
+          $null=New-Item -ItemType Directory -Path (Join-Path $root 'Data') -Force
+          Set-Content -LiteralPath (Join-Path $root 'Build/source.txt') -Value 'retain build/source'
+          Set-Content -LiteralPath (Join-Path $root 'Data/project.json') -Value 'retain private scene'
+          try {
+            Invoke-TrueEngineUpdate $root
+            $app=Join-Path $root 'app'
+            $manifest=Read-AppManifest $app
+            Test-ManagedApp $app $manifest
+            Write-Host "::notice::Live fresh install and all hashes verified: $($manifest.version) from $($manifest.source_commit)"
+            Set-Content -LiteralPath (Join-Path $app 'private-preferences.json') -Value 'retain application preference'
+            # Force the upgrade path using a synthetic older version marker; payload bytes are real release files.
+            $manifest.version='0.0.0'
+            $manifest | ConvertTo-Json -Depth 12 | Set-Content -LiteralPath (Join-Path $app 'manifest.json') -Encoding UTF8
+            Invoke-TrueEngineUpdate $root
+            Test-ManagedApp $app (Read-AppManifest $app)
+            if ((Get-Content -LiteralPath (Join-Path $app 'private-preferences.json')) -ne 'retain application preference') { throw 'App data lost' }
+            if ((Get-Content -LiteralPath (Join-Path $root 'Data/project.json')) -ne 'retain private scene') { throw 'Scene lost' }
+            if ((Get-Content -LiteralPath (Join-Path $root 'Build/source.txt')) -ne 'retain build/source') { throw 'Build changed' }
+            $batch=Join-Path $root 'Update True Engine.bat'
+            'x' | & cmd.exe /d /c ('"'+$batch+'"')
+            if ($LASTEXITCODE -ne 0) { throw "BAT update failed: $LASTEXITCODE" }
+            $message='PASS: native Windows PowerShell 5.1 live API/assets, fresh install, forced-version-marker upgrade, hashes, data/Build preservation and real BAT already-current path. Viewport GPU was NOT executed.'
+            Write-Host "::notice::$message"
+            Add-Content -LiteralPath $env:GITHUB_STEP_SUMMARY -Value $message
+          } catch {
+            $details=($_.Exception.Message+"`n"+$_.ScriptStackTrace).Replace('%','%25').Replace("`r",'%0D').Replace("`n",'%0A')
+            Write-Host "::error::$details"
+            throw
+          } finally {
+            if (Test-Path -LiteralPath $root) { Remove-Item -LiteralPath $root -Recurse -Force }
+          }
