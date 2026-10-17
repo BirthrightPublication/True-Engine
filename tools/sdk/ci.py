@@ -83,6 +83,11 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--with-browser-deps", action="store_true", help="Install Playwright Linux system dependencies on the GitHub runner")
     arguments = parser.parse_args()
+    # GitHub runners accept UTF-8; Windows redirected stdout otherwise defaults
+    # to a legacy code page and cannot relay Playwright/Node status symbols.
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+    os.environ["PYTHONUTF8"] = "1"
     os.environ["PYTHON"] = sys.executable
     os.environ.setdefault("SDK_BACKENDS", "webgl2")
     runner = Runner()

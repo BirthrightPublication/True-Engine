@@ -120,6 +120,9 @@ def build(stage: Path) -> dict:
         for name in ["PLATE_STUDIO_INTEGRATION.md", "SDK-0.1.md"]:
             if (ROOT / "docs" / name).is_file():
                 copy_required(ROOT / "docs" / name, staged / "docs" / name)
+        for name in [f"SDK_VALIDATION-{version}.md", f"RELEASE-{version}.md"]:
+            copy_required(ROOT / "docs" / name, staged / "docs" / name)
+        copy_required(ROOT / "CHANGELOG.md", staged / "docs/CHANGELOG.md")
         copy_required(ROOT / "LICENSING.md", staged / "docs/LICENSING.md")
         copy_required(ROOT / "LICENSING.md", staged / "package/LICENSING.md")
         for name, data in dependency_notices(metadata).items():

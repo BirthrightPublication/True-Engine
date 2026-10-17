@@ -16,6 +16,7 @@ Consumer inspected read-only: License Plate Obfuscation Studio main `39d8af74e6f
 - `npm --prefix tools/browser run types`: the host example API usage type-checks against the actual staged package declarations.
 - `npm --prefix tools/browser run unit`: 2 compatibility-bridge tests passed; these unit stubs are not rendering/platform evidence.
 - `CHROMIUM_PATH=/usr/bin/chromium SDK_BACKENDS=webgl2 npm --prefix tools/browser test`: 8 tests passed, zero skipped/flaky. Chromium154.0.8037.57 headless, actual WebGL2/SwiftShader wgpu rendering. Tests load the compiled WASM, inspect blue cube/orange custom-mesh pixels, change materials/TRS, pick actual triangle geometry, drive pointer orbit/pan/wheel and keyboard reset, download/reopen a project, reject invalid inputs atomically, enforce camera/canvas bounds, resize, isolate multiple host-owned canvases and dispose/recreate a canvas.
+- `cargo build --workspace --locked -j4` and `python3 tools/smoke_native.py`: real Linux/Xorg native startup/render/click selection, S/L project round trip, orbit/pan/zoom passed.
 - `tools/release/Test-Updater.ps1` under retained PowerShell7.4.13 on Linux: all18 existing synthetic PE/filesystem/mock-process checks passed. This is updater regression evidence, not native Windows execution.
 - `actionlint` on the release workflow: passed. Official Linux CLI archive was downloaded, SHA-256 verified and executed; Windows CLI archive SHA/member were verified without executing Windows code.
 

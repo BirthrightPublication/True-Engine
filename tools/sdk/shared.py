@@ -90,6 +90,8 @@ def compatibility(version: str, source: dict) -> dict:
         "javascript_module_format": "ES modules with wasm-bindgen web bindings",
         "delivery": "Precompiled WebAssembly; Rust and Python are not application runtime dependencies",
         "renderer": "Existing True Engine wgpu renderer; WebGPU or WebGL2 backend selected at initialization",
+        "recommended_initial_consumer_backend": "webgl2",
+        "webgpu_qualification": "Experimental until target-platform presentation checks pass; cloud software presentation failed, see SDK validation notes",
         "browser_requirements": [
             "Modern browser with WebAssembly and an available WebGPU or WebGL2 adapter",
             "HTTP(S) server serving .wasm as application/wasm",

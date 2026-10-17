@@ -86,6 +86,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     env:
       SDK_BACKENDS: webgl2
+      PYTHONUTF8: '1'
     steps:
       - uses: actions/checkout@v4
         with:
