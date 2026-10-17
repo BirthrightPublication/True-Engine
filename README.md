@@ -2,7 +2,7 @@
 
 Current engine source: **0.1.3** (additive browser SDK patch), SDK **0.1**, scene schema **1**. This is a developer viewport/engine foundation, not a production-qualified engine or License Plate Obfuscation Studio.
 
-Published: [v0.1.2 Windows release](https://github.com/BirthrightPublication/True-Engine/releases/tag/v0.1.2). For one-time setup extract the updater bootstrap into `B:\True Engine` and run **Update True Engine.bat**. Subsequent versions need only that double-click. Native Windows updater/build tests and live public downloads/BAT passed; interactive GPU compatibility remains a user-machine check. [Published asset hashes and CI evidence](releases/0.1.2/github-release.json).
+Published: [v0.1.3 release and SDK](https://github.com/BirthrightPublication/True-Engine/releases/tag/v0.1.3). For one-time setup extract the updater bootstrap into `B:\True Engine` and run **Update True Engine.bat**. Subsequent versions need only that double-click. Native Windows updater/build tests and live public downloads/BAT passed; interactive GPU compatibility remains a user-machine check. [Published asset hashes and CI evidence](releases/0.1.3/github-release.json).
 
 The [standard GitHub release/updater guide](docs/WINDOWS_UPDATES.md) describes tag-driven native Windows builds and `Update True Engine.bat`. Existing 0.1.0 test-kit artifacts, tagged source and install directories are retained. Windows runtime and the new GitHub workflow must be verified separately from local Linux checks.
 
@@ -26,6 +26,8 @@ python3 -m unittest discover -s tools -v
 Left drag orbits, right drag pans, wheel zooms, click selects (gold highlight). S/L saves/loads project.json in the native example's working directory. The sample contains three primitives. See [SDK contract](docs/SDK-0.1.md) and [validation evidence](docs/VALIDATION.md) for limits.
 
 ## Browser SDK
+
+Download [True-Engine-SDK-v0.1.3-web.zip](https://github.com/BirthrightPublication/True-Engine/releases/download/v0.1.3/True-Engine-SDK-v0.1.3-web.zip) and its [.sha256](https://github.com/BirthrightPublication/True-Engine/releases/download/v0.1.3/True-Engine-SDK-v0.1.3-web.zip.sha256). SHA-256: `388856afc015682065fe86591b8c47e4ec28c5dae0dc7fbf7a00e9f099d8387e`. The compiled package and all181 payload hashes were independently downloaded/verified. Linux and Windows CI each passed8 real browser integration tests using WebGL2; Windows CI used its own build. Use `backend:'webgl2'` for the first consumer integration. WebGPU presentation remains unqualified in this cloud graphics environment.
 
 The embeddable `@birthright/true-engine@0.1.3` SDK uses the existing Rust/wgpu renderer on a host-owned canvas. It ships compiled WASM, ES modules, TypeScript declarations, compatibility/hash manifests, notices and a working browser integration example. It supports primitives/custom indexed meshes, opaque materials, orbit/pan/zoom/reset, picking and browser-project save/reopen. Native schema 1 and Rust SDK 0.1 remain compatible.
 
