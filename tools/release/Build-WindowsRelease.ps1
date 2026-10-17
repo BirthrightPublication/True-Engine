@@ -7,10 +7,23 @@ $work=Join-Path ([IO.Path]::GetTempPath()) ('true-engine-release-'+[guid]::NewGu
 $null=New-Item -ItemType Directory -Path $work
 $results=[Collections.Generic.List[object]]::new()
 function Run-Checked([string]$Program,[string[]]$Arguments) {
-    & $Program @Arguments
-    if ($LASTEXITCODE -ne 0) { throw "Failed ($LASTEXITCODE): $Program $Arguments" }
-    $results.Add(@{command=($Program+' '+($Arguments -join ' '));exit_code=0;platform='native Windows runner'})
+    $log=Join-Path $work ('command-'+$results.Count+'.log')
+    $PSNativeCommandUseErrorActionPreference=$false
+    & $Program @Arguments 2>&1 | Tee-Object -FilePath $log
+    $status=$LASTEXITCODE
+    $description=$Program+' '+($Arguments -join ' ')
+    if ($env:GITHUB_STEP_SUMMARY) {
+        Add-Content -LiteralPath $env:GITHUB_STEP_SUMMARY -Value ("- Exit $status : ``$description``") -Encoding UTF8
+    }
+    if ($status -ne 0) {
+        $tail=(Get-Content -LiteralPath $log -Tail 45) -join "`n"
+        $message=("Failed ($status): $description`n$tail").Replace('%','%25').Replace("`r",'%0D').Replace("`n",'%0A')
+        Write-Host "::error::$message"
+        throw "Failed ($status): $description"
+    }
+    $results.Add(@{command=$description;exit_code=0;platform='native Windows runner'})
 }
+
 try {
     # Static MSVC CRT: runtime prerequisites stay within Windows 11 system DLLs.
     $env:RUSTFLAGS='-C target-feature=+crt-static'
@@ -33,4 +46,8 @@ try {
     $arguments=@('tools/release/package.py','--binary','target/release/true-engine-viewport.exe','--version',$Version,'--evidence',$evidence,'--metadata',$metadata,'--rust-root',$rustRoot,'--output','Build')
     if ($Candidate) { $arguments += '--candidate' }
     Run-Checked python $arguments
+} catch {
+    $message=($_.Exception.Message+"`n"+$_.ScriptStackTrace).Replace('%','%25').Replace("`r",'%0D').Replace("`n",'%0A')
+    Write-Host "::error::$message"
+    throw
 } finally { Pop-Location }

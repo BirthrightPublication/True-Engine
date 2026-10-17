@@ -143,7 +143,7 @@ def build(binary, version, evidence, metadata, rust_root, output, runtime_files=
     if missing:
         raise ValueError('Unbundled non-system runtime DLLs: '+str(sorted(missing)))
     bootstrap={'Start True Engine.bat':(RELEASE/'Start True Engine.bat').read_bytes(),'Update True Engine.bat':(RELEASE/'Update True Engine.bat').read_bytes(),'TrueEngine-Bootstrap.ps1':(RELEASE/'Update-TrueEngine.ps1').read_bytes(),'README - FIRST TIME SETUP.txt':(RELEASE/'README.txt').read_bytes()}
-    manifest=dict(format_version=1,version=version,sdk='0.1',schema=1,migration='none',source_commit=commit,source_tag='v'+version,platform='Windows 11 x64',pe_imports=sorted(imports),tests=evidence,changed_files=sorted(files),files={n:sha(b) for n,b in sorted(files.items())},bootstrap_files={n:sha(b) for n,b in bootstrap.items()})
+    manifest=dict(format_version=1,version=version,sdk='0.1',schema=1,migration='none',source_commit=commit,source_tag=('v'+version if require_tag else None),candidate=not require_tag,platform='Windows 11 x64',pe_imports=sorted(imports),tests=evidence,changed_files=sorted(files),files={n:sha(b) for n,b in sorted(files.items())},bootstrap_files={n:sha(b) for n,b in bootstrap.items()})
     files['app/manifest.json']=json.dumps(manifest,indent=2).encode()
     files.update(bootstrap)
     package=output/f'True-Engine-v{version}-windows-x64.zip'
