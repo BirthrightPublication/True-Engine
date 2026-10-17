@@ -1,0 +1,5 @@
+/target/
+/Build/
+/web/pkg/
+__pycache__/
+/project.json

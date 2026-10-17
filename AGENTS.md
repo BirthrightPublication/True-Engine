@@ -1,0 +1,13 @@
+# TRUE ENGINE engineering contract
+
+Stay within v0.1.0 until the owner approves a future release phase. Preserve existing public APIs and schema compatibility; breaking changes require explicit approval. Keep the engine application-agnostic: license plate logic belongs in a consumer application.
+
+Use the existing isolated checkout, without creating a worktree unless requested. Read docs/SDK-0.1.md before changing public behavior. Prefer small modules, retained GPU resources, and event-driven rendering. Never claim platform execution or performance measurements without evidence.
+
+Before delivery run `cargo fmt --all -- --check`, `cargo clippy --workspace --all-targets --locked -- -D warnings`, `EGL_PLATFORM=surfaceless cargo test --workspace --locked`, and `python3 -m unittest discover -s tools -v`. The GPU test requires EGL/OpenGL and asserts rendered pixels. Preserve failures and skipped checks in release notes. Run wasm and Windows target checks where available; build and run Windows releases on Windows before marking them verified.
+
+Every release/patch must include changed files, actual test commands/results, SDK/schema compatibility, migration behavior, package and payload SHA-256. Keep user projects under Data, outside replaceable Current. Never invent test results, disable integrity verification, or push/publish a release without authorization. No future phases without approval.
+
+The permanent roadmap and continuation policy are in [docs/ROADMAP.md](docs/ROADMAP.md). Treat an owner message saying “Continue” as an instruction to implement the next practical milestone or patch in the approved phase. Explicit approval is still required to begin a future release phase. Coordinate consumer integration through the versioned SDK; do not edit consuming application repositories. Keep existing picking, hierarchy, serialization, and SDK APIs compatible even though the roadmap schedules their broader systems for later phases. Do not build expensive generalized systems without demonstrated application need.
+
+Read [docs/PERMANENT_DEVELOPMENT_DIRECTIVE.md](docs/PERMANENT_DEVELOPMENT_DIRECTIVE.md) for the owner's release and continuity requirements. On continuation, read NEXT_ITERATION.md first and reconcile it with actual code and evidence. The active priority is making the existing v0.1.0 Windows test release installable and testable; do not add engine features until that baseline is tested. Keep the engine and License Plate Obfuscation Studio in separate repositories/installations. Maintain local version tags for delivered versions; do not push without authorization.
