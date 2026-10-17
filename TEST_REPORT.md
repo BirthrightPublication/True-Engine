@@ -13,3 +13,7 @@ Actual checks completed in the Linux cloud environment:
 Configured but NOT established by local tests: GitHub Actions native Windows MSVC builds, Windows PowerShell 5.1 filesystem tests, actual GitHub Release uploads/downloads, the BAT's Windows invocation, interactive Windows GPU behavior and installation on B:. Their completion requires independent CI/Windows evidence. Local GitHub API access returns 403 Forbidden. No workflow execution or asset publication is claimed merely because the workflow/source/tag is pushed.
 
 Tagged 0.1.0 reports and previous packages remain retained. No new rendering/editor feature phase, schema migration or performance claim is introduced. See docs/RELEASE-0.1.1.md, docs/WINDOWS_UPDATES.md and each package's app/manifest.json for exact source/hash/build-time evidence.
+
+## Native CI discovery and corrective source patch 0.1.2
+
+The initial tagged 0.1.1 run (38993133322) failed on Windows while Linux passed. Diagnostic main run 38993584078 identified: `Unable to find type [IO.Compression.ZipArchive]` in the Windows PowerShell 5.1 updater test. Native fmt/clippy, SDK/doctests and Python tests had passed before that command. No 0.1.1 assets were uploaded by the failed run. Patch 0.1.2 explicitly loads System.IO.Compression as well as FileSystem; completion of its native run and publication must be checked separately. Earlier local 0.1.1 passing results are not being relabeled as native 0.1.2 passes.

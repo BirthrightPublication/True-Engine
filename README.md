@@ -1,6 +1,6 @@
 # TRUE ENGINE
 
-Current engine source: **0.1.1**, SDK **0.1**, scene schema **1**. This is a developer viewport/engine foundation, not a production-qualified engine or License Plate Obfuscation Studio.
+Current engine source: **0.1.2**, SDK **0.1**, scene schema **1**. This is a developer viewport/engine foundation, not a production-qualified engine or License Plate Obfuscation Studio.
 
 The [standard GitHub release/updater guide](docs/WINDOWS_UPDATES.md) describes tag-driven native Windows builds and `Update True Engine.bat`. Existing 0.1.0 test-kit artifacts, tagged source and install directories are retained. Windows runtime and the new GitHub workflow must be verified separately from local Linux checks.
 

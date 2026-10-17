@@ -21,3 +21,7 @@ Reviewed source exclusions, common secret patterns, first-party runtime/install 
 ## 0.1.1 — Windows release/update infrastructure
 
 Added standard versioned Windows ZIP/checksum assets, tag-gated GitHub Actions with native Windows compilation/CPU/updater tests, dependency notice bundles, automatic latest-stable download/verification, managed app staging/backups/rollback/journaling, persistent-state preservation, logs and stable root launchers. Retained legacy installation layouts and old tags/packages. Viewport title follows the actual compiled version. SDK 0.1/schema 1 remain compatible, no migration. No new engine feature phase or performance claim. See docs/RELEASE-0.1.1.md for actual tests and outstanding native/live verification.
+
+## 0.1.2 — native Windows PowerShell ZIP compatibility
+
+Fixed the missing explicit System.IO.Compression assembly load found by the native Windows PowerShell 5.1 test. Preserved the failed 0.1.1 source tag and local candidate; no misleading release upload claim. Added native-error annotations, clean candidate labeling, explicit exit-status logging and credential-free Cargo build caches. SDK 0.1/schema 1 remain compatible; no data migration or new engine features. Release assets remain gated on actual native CI success.

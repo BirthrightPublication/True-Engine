@@ -9,8 +9,12 @@ $results=[Collections.Generic.List[object]]::new()
 function Run-Checked([string]$Program,[string[]]$Arguments) {
     $log=Join-Path $work ('command-'+$results.Count+'.log')
     $PSNativeCommandUseErrorActionPreference=$false
-    & $Program @Arguments 2>&1 | Tee-Object -FilePath $log
-    $status=$LASTEXITCODE
+    $savedPreference=$ErrorActionPreference
+    try {
+        $ErrorActionPreference='Continue' # Native stderr is logged; explicit exit status is authoritative, including PS 5.1.
+        & $Program @Arguments 2>&1 | Tee-Object -FilePath $log
+        $status=$LASTEXITCODE
+    } finally { $ErrorActionPreference=$savedPreference }
     $description=$Program+' '+($Arguments -join ' ')
     if ($env:GITHUB_STEP_SUMMARY) {
         Add-Content -LiteralPath $env:GITHUB_STEP_SUMMARY -Value ("- Exit $status : ``$description``") -Encoding UTF8

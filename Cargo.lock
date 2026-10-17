@@ -1512,7 +1512,7 @@ dependencies = [
 
 [[package]]
 name = "true-engine"
-version = "0.1.1"
+version = "0.1.2"
 dependencies = [
  "bytemuck",
  "glam",
@@ -1525,7 +1525,7 @@ dependencies = [
 
 [[package]]
 name = "true-engine-viewport"
-version = "0.1.1"
+version = "0.1.2"
 dependencies = [
  "console_error_panic_hook",
  "glam",

@@ -1,14 +1,14 @@
 {
-  "engine_version": "0.1.1",
+  "engine_version": "0.1.2",
   "sdk": "0.1",
   "project_schema": 1,
-  "source_tag": "v0.1.1",
+  "source_tag": "v0.1.2",
   "status": "release infrastructure implemented; native CI/publication require independent confirmation",
-  "archive": "True-Engine-v0.1.1-windows-x64.zip",
-  "checksum": "True-Engine-v0.1.1-windows-x64.zip.sha256",
+  "archive": "True-Engine-v0.1.2-windows-x64.zip",
+  "checksum": "True-Engine-v0.1.2-windows-x64.zip.sha256",
   "migration": "none",
   "compatibility": "SDK 0.1/schema 1; legacy installations and persistent data retained",
-  "tests_report": "docs/RELEASE-0.1.1.md",
+  "tests_report": "docs/RELEASE-0.1.2.md",
   "package_manifest": "app/manifest.json in each archive contains exact source commit, actual build-time tests and file hashes",
   "github_release_published": false
 }

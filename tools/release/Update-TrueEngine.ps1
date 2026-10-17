@@ -80,6 +80,7 @@ function Assert-PackagePath([string]$Name) {
 function Expand-VerifiedPackage([string]$Package,[string]$Hash,[string]$Stage,[string]$Version) {
     if ($Hash -notmatch '^[a-fA-F0-9]{64}$' -or (Get-FileHash -LiteralPath $Package -Algorithm SHA256).Hash.ToLowerInvariant() -ne $Hash.ToLowerInvariant()) { throw 'Package SHA-256 mismatch.' }
     if ((Get-Item -LiteralPath $Package).Length -gt 536870912) { throw 'Package exceeds size limit.' }
+    Add-Type -AssemblyName System.IO.Compression
     Add-Type -AssemblyName System.IO.Compression.FileSystem
     # Lock the checked archive against modification while it is read/extracted.
     $stream = [IO.File]::Open($Package,[IO.FileMode]::Open,[IO.FileAccess]::Read,[IO.FileShare]::Read)

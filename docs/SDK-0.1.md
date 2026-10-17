@@ -1,6 +1,6 @@
 # TRUE ENGINE SDK contract 0.1
 
-Engine version: 0.1.1 (compatible with 0.1.0). Project schema: 1. Public Rust API: `true_engine` crate. Backward-compatible changes only unless explicitly approved, including during 0.x. No stable C ABI or plugin ABI is promised. The engine has no application domain dependencies.
+Engine version: 0.1.2 (compatible with 0.1.0 and 0.1.1). Project schema: 1. Public Rust API: `true_engine` crate. Backward-compatible changes only unless explicitly approved, including during 0.x. No stable C ABI or plugin ABI is promised. The engine has no application domain dependencies.
 
 Coordinates are right-handed, +Y up, units application-defined. Camera projection uses wgpu depth 0..1. Primitive cube side and sphere diameter are one unit; plane is a unit square on XZ. Parent world matrices multiply local TRS. IDs are caller-assigned u64, unique per scene. Parents must exist before children are added. Cycles, missing parents, nonfinite transforms, zero scales, nonunit rotations, invalid color channels and duplicate IDs are rejected. Colors are opaque linear RGBA (alpha is reserved; blending is not enabled). Nodes are exposed read-only to keep hierarchy validation intact.
 
